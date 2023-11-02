@@ -14,6 +14,15 @@ public class Product {
     private long price;
     private boolean available;
     private boolean deleted;
+    private String imageName;
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
 
     public String getDescription() {
         return description;
