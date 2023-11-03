@@ -59,6 +59,22 @@ public class ProductController {
     public ResponseEntity <List<ProductApiResponse>> getProductsByCategory(@PathVariable String category){
         return new ResponseEntity<>(productService.getProductsByCategory(category), HttpStatus.OK);
     }
+    @GetMapping("/brand/{brandId}")
+    @Operation(summary = "Fetch products by brandId")
+    public ResponseEntity <List<ProductApiResponse>> getProductsByBrandId(@PathVariable String brandId){
+        return new ResponseEntity<>(productService.getProductsByBrandId(brandId), HttpStatus.OK);
+    }
+    @GetMapping("/brandName/{brandName}")
+    @Operation(summary = "Fetch products by brandName")
+    public ResponseEntity <List<ProductApiResponse>> getProductsByBrandName(@PathVariable String brandName){
+        return new ResponseEntity<>(productService.getProductsByBrandName(brandName), HttpStatus.OK);
+    }
+    @GetMapping("/categoryOfBrand")
+    @Operation(summary = "Fetch products of a brand by category")
+    public ResponseEntity <List<ProductApiResponse>> getProductsOfBrandByCategory( @RequestParam String category,
+                                                                                   @RequestParam String brand){
+        return new ResponseEntity<>(productService.getProductsOfBrandByCategory(category, brand), HttpStatus.OK);
+    }
     @GetMapping("/sorted")
     @Operation(summary = "Sort products")
     public ResponseEntity<List<ProductApiResponse>> getProductsByCategoryAndSort(

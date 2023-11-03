@@ -10,4 +10,6 @@ public interface ImageService {
     String storeImage(MultipartFile file, String productId) throws IOException;
 
     byte[] getImage(String fileName) throws IOException;
+
+    String storeBrandImage(MultipartFile image, String id) throws IOException;
 }

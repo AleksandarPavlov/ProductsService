@@ -22,4 +22,10 @@ public interface ProductService {
     List<ProductApiResponse> getAvailableProducts();
 
     ProductApiResponse updateProduct(String id, ProductUpdateRequest productUpdateRequest);
+
+    List<ProductApiResponse> getProductsByBrandId(String brandId);
+
+    List<ProductApiResponse> getProductsByBrandName(String brandName);
+
+    List<ProductApiResponse> getProductsOfBrandByCategory(String category, String brand);
 }

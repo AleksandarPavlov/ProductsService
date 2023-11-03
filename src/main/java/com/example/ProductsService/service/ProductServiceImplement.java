@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.modelmapper.ModelMapper;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +22,6 @@ public class ProductServiceImplement implements ProductService {
 
     private static final Logger log = LoggerFactory.getLogger(ProductServiceImplement.class);
     private final ProductRepository productRepository;
-    private ModelMapper modelMapper;
     private final ImageService imageService;
 
     public ProductServiceImplement(ProductRepository productRepository, ImageService imageService) {
@@ -66,6 +64,8 @@ public class ProductServiceImplement implements ProductService {
         newProduct.setName(product.name());
         newProduct.setPrice(product.price());
         newProduct.setImageName(product.image().getOriginalFilename());
+        newProduct.setBrandId(product.brandId());
+        newProduct.setBrandName(product.brandName());
         Product createdProduct = productRepository.save(newProduct);
         imageService.storeImage(product.image(), createdProduct.getId());
         return createdProduct;
@@ -158,6 +158,34 @@ public class ProductServiceImplement implements ProductService {
             log.info("Failed to update product with ID: {}", id);
             throw new CustomException("Product with ID: " + id + " not found", HttpStatus.NOT_FOUND);
         }
+
+    }
+
+    @Override
+    public List<ProductApiResponse> getProductsByBrandId(String brandId) {
+        log.info("Fetching products by brand with ID: {}.", brandId);
+        List<Product> products = productRepository.findAllByBrandIdAndDeletedIsFalse(brandId);
+        return products.stream()
+                .map(ProductApiResponse::map)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductApiResponse> getProductsByBrandName(String brandName) {
+        log.info("Fetching products by brand with Name: {}.", brandName);
+        List<Product> products = productRepository.findAllByBrandNameAndDeletedIsFalse(brandName);
+        return products.stream()
+                .map(ProductApiResponse::map)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductApiResponse> getProductsOfBrandByCategory(String category, String brand) {
+        log.info("Fetching products by brand: {} and category {}", brand, category);
+        List<Product> products = productRepository.findByCategoryAndBrandId(category,brand);
+        return products.stream()
+                .map(ProductApiResponse::map)
+                .collect(Collectors.toList());
 
     }
 }

@@ -11,6 +11,8 @@ public class Product {
     private String name;
     private String category;
     private String description;
+    private String brandId;
+    private String brandName;
     private long price;
     private boolean available;
     private boolean deleted;
@@ -20,8 +22,24 @@ public class Product {
         return imageName;
     }
 
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public String getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(String brandId) {
+        this.brandId = brandId;
     }
 
     public String getDescription() {

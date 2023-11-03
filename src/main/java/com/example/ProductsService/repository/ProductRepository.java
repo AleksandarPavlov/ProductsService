@@ -17,4 +17,10 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     List<Product> findAllByCategory(String category, Sort sort);
     @Query("{'deleted': false, 'available': true}")
     List<Product> findAvailableProducts();
+    List<Product> findAllByBrandIdAndDeletedIsFalse(String brandId);
+    @Query("{'brandName': {$regex: ?0, $options: 'i'}}")
+    List<Product> findAllByBrandNameAndDeletedIsFalse(String brandId);
+    @Query("{'category': {$regex: ?0, $options: 'i'}, 'brandId': ?1, 'deleted': false}")
+    List<Product> findByCategoryAndBrandId(String category, String brandId);
+
 }
