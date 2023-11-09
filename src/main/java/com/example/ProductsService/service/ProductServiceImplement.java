@@ -64,6 +64,7 @@ public class ProductServiceImplement implements ProductService {
         newProduct.setName(product.name());
         newProduct.setPrice(product.price());
         newProduct.setImageName(product.image().getOriginalFilename());
+        newProduct.setImageUrl(product.imageUrl());
         newProduct.setBrandId(product.brandId());
         newProduct.setBrandName(product.brandName());
         Product createdProduct = productRepository.save(newProduct);

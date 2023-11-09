@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -21,6 +23,8 @@ public class ImageServiceImplement implements ImageService {
 
     @Value("${image.upload.path.brand}")
     private String uploadBrandPath;
+
+
     @Override
     public String storeImage(MultipartFile file, String productId) throws IOException {
         log.info("Attempting to store an image for product with ID: {}", productId);

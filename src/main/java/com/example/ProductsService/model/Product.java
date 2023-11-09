@@ -17,6 +17,15 @@ public class Product {
     private boolean available;
     private boolean deleted;
     private String imageName;
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getImageName() {
         return imageName;
